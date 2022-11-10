@@ -1,3 +1,3 @@
 # Group-Five
 
-Yahooooooo
+npx create-expo-app frontend
