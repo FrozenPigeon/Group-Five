@@ -1,14 +1,25 @@
 const clothing_items = [
     {
-        "id": 1,
-        "title": "Green Hoodie",
-        "type": "Thriftstore",
-        "price": "5",
-        "description": "The greener the shirt the more environmentally conscious you are right?",
-        "size": "M",
+        "id": 0,
+        "title": "Grey Dress",
+        "type": "Warehouse",
+        "price": "2",
+        "description": "The greyer the dress the better right?",
+        "size": "S",
         "condition": "Good",
-        "location": "Joe's Thriftstore",
-        "image": require("../images/green_hoodie.png")
+        "location": "We can come to you or you can drop it off to us. Your choice!",
+        "image": require("../images/grey_dress.png")
+    },
+    {
+        "id": 1,
+        "title": "Grey Dress",
+        "type": "Warehouse",
+        "price": "2",
+        "description": "The greyer the dress the better right?",
+        "size": "S",
+        "condition": "Good",
+        "location": "We can come to you or you can drop it off to us. Your choice!",
+        "image": require("../images/grey_dress.png")
     },
     {
         "id": 2,
@@ -45,6 +56,17 @@ const clothing_items = [
     },
     {
         "id": 5,
+        "title": "Green Hoodie",
+        "type": "Thriftstore",
+        "price": "5",
+        "description": "The greener the shirt the more environmentally conscious you are right?",
+        "size": "M",
+        "condition": "Good",
+        "location": "Joe's Thriftstore",
+        "image": require("../images/green_hoodie.png")
+    },
+    {
+        "id": 6,
         "title": "Belt",
         "type": "Thriftstore",
         "price": "5",
@@ -55,7 +77,7 @@ const clothing_items = [
         "image": require("../images/belt.png")
     },
     {
-        "id": 6,
+        "id": 7,
         "title": "Black Shoes",
         "type": "Warehouse",
         "price": "7",

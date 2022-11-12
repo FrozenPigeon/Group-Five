@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, FlatList, ScrollView } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, FlatList, ScrollView, Button } from "react-native";
 import clothing_items from "../data/ClothesData";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -96,7 +96,6 @@ export default function HomeScreen({ navigation }) {
                         style={styles.itemContainer}
                     >
                         <View style={[styles.typeContainer, {backgroundColor: info.type === 'Thriftstore' ? '#0C3A5A' : '#AF638E'}]}>
-                            {/* <Text style={{position:'relative', left: 40, backgroundColor:'red', paddingHorizontal: 4, borderRadius: 50}}>{info.type}</Text> */}
                             <Text style={{color: '#FFFFFF', fontSize: 11}}>{info.type}</Text>
                         </View>
                         
@@ -111,6 +110,7 @@ export default function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+            <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}><Text>Go to Cart -- will remove when header is made</Text></TouchableOpacity>
         </View>
     );
 
