@@ -8,7 +8,7 @@ const clothing_items = [
         "size": "M",
         "condition": "Good",
         "location": "Joe's Thriftstore",
-        "image": "../images/green_hoodie.png"
+        "image": require("../images/green_hoodie.png")
     },
     {
         "id": 2,
@@ -19,7 +19,7 @@ const clothing_items = [
         "size": "S",
         "condition": "Good",
         "location": "We can come to you or you can drop it off to us. Your choice!",
-        "image": "../images/grey_dress.png"
+        "image": require("../images/grey_dress.png")
     },
     {
         "id": 3,
@@ -30,7 +30,7 @@ const clothing_items = [
         "size": "L",
         "condition": "Poor",
         "location": "We can come to you or you can drop it off to us. Your choice!",
-        "image": "../images/black_jacket.png"
+        "image": require("../images/black_jacket.png")
     },
     {
         "id": 4,
@@ -41,7 +41,7 @@ const clothing_items = [
         "size": "M",
         "condition": "Great",
         "location": "Samuel's Thriftstore",
-        "image": "../images/red_dress.png"
+        "image": require("../images/red_dress.png")
     },
     {
         "id": 5,
@@ -52,7 +52,7 @@ const clothing_items = [
         "size": "XL",
         "condition": "Great",
         "location": "Joe's Thriftstore",
-        "image": "../images/belt.png"
+        "image": require("../images/belt.png")
     },
     {
         "id": 6,
@@ -63,7 +63,7 @@ const clothing_items = [
         "size": "S",
         "condition": "Poor",
         "location": "We can come to you or you can drop it off to us. Your choice!",
-        "image": "../images/black_shoes.png"
+        "image": require("../images/black_shoes.png")
     }
 ]
 

@@ -35,9 +35,9 @@ export default function App() {
 
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
-              tabBarActiveTintColor: 'teal',
-              tabBarInactiveTintColor: 'gray',
-              headerTintColor: 'teal',
+              tabBarActiveTintColor: '#167D7F',
+              tabBarInactiveTintColor: '#515154',
+              headerTintColor: '#167D7F',
               tabBarStyle: {
               }
               
@@ -61,7 +61,7 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{colors: {background: '#FFFFFF'}}}>
       <RootStack.Navigator initialRouteName="BottomNavigation">
         <RootStack.Screen name="Home" component={HomeScreen}/>
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen}/>
