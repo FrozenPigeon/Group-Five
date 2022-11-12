@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import HomeScreen from "./screens/home";
 import ProfileScreen from "./screens/profile";
 import SellScreen from "./screens/sell";
-import { Text } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ItemViewScreen from "./screens/itemView";
+import CartScreen from "./screens/cart";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -35,9 +36,9 @@ export default function App() {
 
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
-              tabBarActiveTintColor: 'teal',
-              tabBarInactiveTintColor: 'gray',
-              headerTintColor: 'teal',
+              tabBarActiveTintColor: '#167D7F',
+              tabBarInactiveTintColor: '#515154',
+              headerTintColor: '#167D7F',
               tabBarStyle: {
               }
               
@@ -61,10 +62,11 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{colors: {background: '#FFFFFF'}}}>
       <RootStack.Navigator initialRouteName="BottomNavigation">
         <RootStack.Screen name="Home" component={HomeScreen}/>
-        <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen}/>
+        <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} />
+        <RootStack.Screen name="CartScreen" component={CartScreen} />
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }}/>
         
       </RootStack.Navigator> 
