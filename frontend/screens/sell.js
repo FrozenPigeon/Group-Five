@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, TextInput } from "react-native";
+import * as MediaLibrary from 'expo-media-library';
 import { Camera, CameraType } from "expo-camera";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function SellScreen({ navigation }) {
 
-  let cameraRef = useRef();
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [itemPhoto, setItemPhoto] = useState();
+
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [itemPhoto, setItemPhoto] = useState(null);
 
   const [itemTitle, setItemTitle] = useState("");
   const [itemDescription, setItemDescription] = useState("");
@@ -27,11 +29,28 @@ export default function SellScreen({ navigation }) {
 
   const [deliveryOption, setDeliveryOption] = useState("Pickup");
 
+  const cameraRef = useRef(null);
+
+  useEffect(() => {
+
+    (async () => {
+      MediaLibrary.requestPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === 'granted');
+    })();
+
+  }, []);
+
   useEffect(() => {
 
     setCanEvaluate(checkFormFilled)
 
   }, [itemTitle, itemCategory, itemDescription, itemSize]);
+
+  useEffect(() => {
+    console.log("photo saved")
+    console.log(itemPhoto)
+  }, [itemPhoto])
 
   function reset() {
     setEvaluateStage(false)
@@ -83,18 +102,29 @@ export default function SellScreen({ navigation }) {
 
   }
 
-  let takePhoto = async () => {
+  const takePhoto = async () => {
 
-    let options = {
-      quality: 1,
-      base64: true,
-      exif: false
+    const options = {
+
     };
 
     if (cameraRef) {
-      const photo = await cameraRef.current.takePictureAsync(options)
-      console.log(photo)
-      setItemPhoto(photo)
+      try {
+        const data = await cameraRef.current.takePictureAsync({
+          quality: 0,
+          base64: true,
+          exif: false,
+        });
+        console.log(data)
+        setItemPhoto(data.uri)
+        console.log(itemPhoto)
+
+      } catch (error) {
+        console.log(error)
+      }
+
+
+
     }
 
   }
@@ -102,30 +132,6 @@ export default function SellScreen({ navigation }) {
   if (!permission) {
     // Camera permissions are still loading
     return <View />;
-  }
-
-  if (!permission.granted) {
-    // Camera permissions are not granted yet
-    return (
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            Camera Permissions
-          </Text>
-        </View>
-        <View style={styles.body}>
-          <Text> We need your permission to use your camera in order to evaluate items you want to sell.</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.evaluateButton}
-          onPress={() => {
-            requestPermission
-          }
-          }>
-          <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Grant Camera Permissions</Text>
-        </TouchableOpacity>
-      </View>
-    );
   }
 
   if (!itemPhoto && permission.granted) {
@@ -147,6 +153,7 @@ export default function SellScreen({ navigation }) {
 
   if (itemPhoto && !evaluateStage) {
     return (
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.title}>
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>
@@ -154,9 +161,14 @@ export default function SellScreen({ navigation }) {
           </Text>
         </View>
         <View style={{ alignItems: "center" }}>
-          <Image style={{ height: "20%", width: "90%", borderRadius: 8, borderWidth: 1, borderColor: "grey" }} ssource={{ uri: itemPhoto.uri }}>
+          <TouchableOpacity
+            onPress={reset}
+            style={{ display: "flex", alignItems: "center", height: 200, width: "90%" }}>
+            <Image style={{ height: 200, width: "100%", borderRadius: 8, borderWidth: 1, borderColor: "grey" }} source={{ uri: itemPhoto }}>
 
-          </Image>
+            </Image>
+          </TouchableOpacity>
+
         </View>
 
         <View style={styles.form}>
@@ -170,14 +182,14 @@ export default function SellScreen({ navigation }) {
 
           <TouchableOpacity style={styles.dropdown} onPress={e => { categoryDropdownOpen ? setCategoryDropdownOpen(false) : setCategoryDropdownOpen(true) }}>
             {itemCategory === 'Item Category' ?
-                <Text style={{ color: 'grey' }}> {itemCategory} </Text>
+              <Text style={{ color: 'grey' }}> {itemCategory} </Text>
               :
-                <Text> {itemCategory} </Text>
+              <Text> {itemCategory} </Text>
             }
             {categoryDropdownOpen ?
               <Ionicons name="caret-up-outline" size="medium" />
-            :
-            <Ionicons name="caret-down-outline" size="medium" />
+              :
+              <Ionicons name="caret-down-outline" size="medium" />
             }
           </TouchableOpacity>
 
@@ -248,10 +260,10 @@ export default function SellScreen({ navigation }) {
                   <Text> {itemSize} </Text>
                 }
                 {sizeDropdownOpen ?
-              <Ionicons name="caret-up-outline" size="medium" />
-            :
-            <Ionicons name="caret-down-outline" size="medium" />
-            }
+                  <Ionicons name="caret-up-outline" size="medium" />
+                  :
+                  <Ionicons name="caret-down-outline" size="medium" />
+                }
               </TouchableOpacity>
 
               {sizeDropdownOpen && (
@@ -355,6 +367,7 @@ export default function SellScreen({ navigation }) {
         </View>
 
       </View>
+      </ScrollView>
     );
   }
 
@@ -422,20 +435,15 @@ export default function SellScreen({ navigation }) {
 
             <TouchableOpacity
               style={styles.cancelButton}
-              onPress={() => {
-                reset
-              }
-              }>
+              onPress={reset}
+            >
               <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Cancel</Text>
             </TouchableOpacity>
             <View style={{ width: 10 }} />
             <TouchableOpacity
               style={styles.confirmButton}
-              onPress={() => {
-                // TODO: save as data as json?
-                reset
-              }
-              }>
+              onPress={reset}
+            >
               <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Confirm</Text>
             </TouchableOpacity>
 
@@ -469,9 +477,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    height: "50%",
-    width: "100%",
-    alignItems: "center"
+    borderRadius: 20,
   },
   buttonContainer: {
     flex: 1,
