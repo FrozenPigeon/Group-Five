@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, TextInput } from "react-native";
 import { Camera, CameraType } from "expo-camera";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function SellScreen({ navigation }) {
 
@@ -11,10 +12,38 @@ export default function SellScreen({ navigation }) {
 
   const [itemTitle, setItemTitle] = useState("");
   const [itemDescription, setItemDescription] = useState("");
+
   const [itemSize, setItemSize] = useState("Item Size");
   const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
+
   const [itemCategory, setItemCategory] = useState("Item Category")
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+
+  const [canEvaluate, setCanEvaluate] = useState(false);
+
+  const [evaluateStage, setEvaluateStage] = useState(false);
+
+  const [itemValuation, setItemValuation] = useState(0);
+
+  const [deliveryOption, setDeliveryOption] = useState("Pickup");
+
+  useEffect(() => {
+
+    setCanEvaluate(checkFormFilled)
+
+  }, [itemTitle, itemCategory, itemDescription, itemSize]);
+
+  function reset() {
+    setEvaluateStage(false)
+    setItemPhoto("")
+    setItemValuation(0)
+    setItemTitle("")
+    setItemDescription("")
+    setItemCategory("Item Category")
+    setItemSize("Item Size")
+    setCategoryDropdownOpen(false)
+    setSizeDropdownOpen(false)
+  }
 
   function checkFormFilled() {
 
@@ -22,7 +51,7 @@ export default function SellScreen({ navigation }) {
       return false
     }
 
-    else if (itemSize === "Item Size" || itemSize === "Shoe Size (US)") {
+    else if (itemSize === "Item Size" || itemSize === "") {
 
       return false
     }
@@ -34,6 +63,23 @@ export default function SellScreen({ navigation }) {
     }
 
     return true
+
+  }
+
+  function itemEvaluation() {
+
+    if (itemCategory === "Shirts") {
+      return Math.floor(Math.random() * 5) + 3;
+    } else if (itemCategory === "Dresses") {
+      return Math.floor(Math.random() * 5) + 3;
+    } else if (itemCategory === "Jackets, Hoodies & Coats") {
+      return Math.floor(Math.random() * 7) + 4;
+    } else if (itemCategory === "Pants & Shorts") {
+      return Math.floor(Math.random() * 6) + 4;
+    } else if (itemCategory === "Shoes") {
+      return Math.floor(Math.random() * 14) + 7;
+    }
+
 
   }
 
@@ -62,8 +108,22 @@ export default function SellScreen({ navigation }) {
     // Camera permissions are not granted yet
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <View style={styles.title}>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            Camera Permissions
+          </Text>
+        </View>
+        <View style={styles.body}>
+          <Text> We need your permission to use your camera in order to evaluate items you want to sell.</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.evaluateButton}
+          onPress={() => {
+            requestPermission
+          }
+          }>
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Grant Camera Permissions</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -85,15 +145,15 @@ export default function SellScreen({ navigation }) {
     );
   }
 
-  if (itemPhoto) {
+  if (itemPhoto && !evaluateStage) {
     return (
       <View style={styles.container}>
-        <View style={styles.form}>
-          <Text style>
-          Sell to our Warehouse
+        <View style={styles.title}>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            Sell to our Warehouse
           </Text>
         </View>
-        <View style={{ alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <Image style={{ height: "20%", width: "90%", borderRadius: 8, borderWidth: 1, borderColor: "grey" }} ssource={{ uri: itemPhoto.uri }}>
 
           </Image>
@@ -110,9 +170,14 @@ export default function SellScreen({ navigation }) {
 
           <TouchableOpacity style={styles.dropdown} onPress={e => { categoryDropdownOpen ? setCategoryDropdownOpen(false) : setCategoryDropdownOpen(true) }}>
             {itemCategory === 'Item Category' ?
-              <Text style={{ color: 'grey' }}> {itemCategory} </Text>
+                <Text style={{ color: 'grey' }}> {itemCategory} </Text>
               :
-              <Text> {itemCategory} </Text>
+                <Text> {itemCategory} </Text>
+            }
+            {categoryDropdownOpen ?
+              <Ionicons name="caret-up-outline" size="medium" />
+            :
+            <Ionicons name="caret-down-outline" size="medium" />
             }
           </TouchableOpacity>
 
@@ -182,6 +247,11 @@ export default function SellScreen({ navigation }) {
                   :
                   <Text> {itemSize} </Text>
                 }
+                {sizeDropdownOpen ?
+              <Ionicons name="caret-up-outline" size="medium" />
+            :
+            <Ionicons name="caret-down-outline" size="medium" />
+            }
               </TouchableOpacity>
 
               {sizeDropdownOpen && (
@@ -260,15 +330,27 @@ export default function SellScreen({ navigation }) {
             numberOfLines={5}
           />
 
-          <TouchableOpacity
-            style={styles.evaluateButton}
-            onPress={() => {
-              setItemSize("XL");
-              setSizeDropdownOpen(false)
-            }
-            }>
-            <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Evaluate</Text>
-          </TouchableOpacity>
+          {canEvaluate ?
+            <TouchableOpacity
+              style={styles.evaluateButton}
+              onPress={() => {
+                setEvaluateStage(true)
+                setItemValuation(itemEvaluation)
+              }
+              }>
+              <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Evaluate</Text>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity
+              style={styles.evaluateButtonDisabled}
+              disabled={true}
+              onPress={() => {
+                setEvaluateStage(true)
+              }
+              }>
+              <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Evaluate</Text>
+            </TouchableOpacity>
+          }
 
         </View>
 
@@ -276,15 +358,100 @@ export default function SellScreen({ navigation }) {
     );
   }
 
-  useEffect(() => {
+  if (itemPhoto && evaluateStage) {
+    return (
+      <View style={styles.evaluateContainer}>
+        <View style={styles.title2}>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            Item Valuation
+          </Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={{ fontSize: 20, marginBottom: 10 }}>
+            We value the item at:
+          </Text>
+          <View style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Text style={{ fontSize: 40, fontWeight: "bold" }}>
+              {itemValuation}
+            </Text>
+            <Ionicons name="logo-bitcoin" style={{ fontSize: 40 }} />
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', marginTop: 50 }}>
+            {deliveryOption !== "Pickup" ?
+              <>
+                <TouchableOpacity
+                  style={styles.deliveryLeftButton}
+                  onPress={() => {
+                    setDeliveryOption("Pickup")
+                  }
+                  }>
+                  <Text style={{ color: "black", fontWeight: "bold" }}>We pickup item</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.deliveryRightButtonSelected}
+                  disabled={true}
+                  onPress={() => {
+                  }
+                  }>
+                  <Text style={{ color: "white", fontWeight: "bold" }}>Deliver to warehouse</Text>
+                </TouchableOpacity>
+              </>
+              :
+              <>
+                <TouchableOpacity
+                  style={styles.deliveryLeftButtonSelected}
+                  disabled={true}
+                  onPress={() => {
+                  }
+                  }>
+                  <Text style={{ color: "white", fontWeight: "bold" }}>We pickup item</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.deliveryRightButton}
+                  onPress={() => {
+                    setDeliveryOption("Delivery")
+                  }
+                  }>
+                  <Text style={{ color: "black", fontWeight: "bold" }}>Deliver to warehouse</Text>
+                </TouchableOpacity>
+              </>
+            }
+
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', marginTop: 50 }}>
+
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => {
+                reset
+              }
+              }>
+              <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Cancel</Text>
+            </TouchableOpacity>
+            <View style={{ width: 10 }} />
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={() => {
+                // TODO: save as data as json?
+                reset
+              }
+              }>
+              <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Confirm</Text>
+            </TouchableOpacity>
+
+          </View>
 
 
-
-  }, [itemTitle, itemCategory, itemDescription, itemSize]);
+        </View>
+      </View>
+    )
+  }
 
   return (
 
-    <View></View>
+    <View style={styles.container}>
+      { }
+    </View>
   )
 
 
@@ -294,6 +461,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
+  },
+  evaluateContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center"
   },
   camera: {
     flex: 1,
@@ -325,7 +497,25 @@ const styles = StyleSheet.create({
     width: "90%",
     padding: 10,
     marginTop: 10,
-    alignItems: "flex-start"
+    alignItems: "flex-start",
+    marginLeft: 12,
+
+  },
+  title2: {
+    width: "90%",
+    padding: 10,
+    marginTop: 10,
+    alignItems: "flex-start",
+    marginLeft: 12,
+
+  },
+  body: {
+    display: "flex",
+    width: "90%",
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center"
 
   },
   input: {
@@ -344,6 +534,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
 
   },
   dropdownOption: {
@@ -371,5 +564,74 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     alignItems: "center"
-  }
+  },
+  evaluateButtonDisabled: {
+    color: 'white',
+    backgroundColor: '#167D7F',
+    width: "90%",
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    opacity: 0.5
+  },
+  deliveryLeftButton: {
+    color: 'white',
+    backgroundColor: '#E4E4E4',
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+  deliveryLeftButtonSelected: {
+    color: 'white',
+    backgroundColor: '#167D7F',
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8
+  },
+  deliveryRightButton: {
+    color: 'white',
+    backgroundColor: '#E4E4E4',
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  deliveryRightButtonSelected: {
+    color: 'white',
+    backgroundColor: '#167D7F',
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8
+  },
+  confirmButton: {
+    color: 'white',
+    backgroundColor: '#167D7F',
+    flex: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center"
+  },
+  cancelButton: {
+    color: 'white',
+    backgroundColor: '#AD1F41',
+    flex: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center"
+  },
+
 });
