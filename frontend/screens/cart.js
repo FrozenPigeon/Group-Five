@@ -50,8 +50,8 @@ export default function CartScreen({navigation}) {
             }
 
             {itemPurchased === 'true' && 
-                <TouchableOpacity>
-                    <Text>Button -- to do when nav bar is shown on this page</Text>
+                <TouchableOpacity style={styles.purchaseButton} onPress={ () => navigation.navigate('Purchased')}>
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Complete Purchase</Text>
                 </TouchableOpacity>
             }
         </View>
@@ -61,6 +61,7 @@ export default function CartScreen({navigation}) {
 const styles = StyleSheet.create({
     main_container: {
         margin: 20,
+        flex: 1
     },
     heading: {
         fontSize: 25,
@@ -100,5 +101,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    purchaseButton: {
+        backgroundColor: '#167D7F',
+        width: "100%",
+        borderRadius: 8,
+        textAlign: 'center',
+        alignItems: "center",
+        paddingVertical: 12,
+        marginTop: 'auto',
+        marginBottom: 30,
     }
 });

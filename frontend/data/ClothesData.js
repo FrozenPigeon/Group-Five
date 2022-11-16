@@ -57,12 +57,12 @@ const clothing_items = [
     {
         "id": 5,
         "title": "Green Hoodie",
-        "type": "Thriftstore",
+        "type": "Warehouse",
         "price": "5",
         "description": "The greener the shirt the more environmentally conscious you are right?",
         "size": "M",
         "condition": "Good",
-        "location": "Joe's Thriftstore",
+        "location": "Randwick Warehouse",
         "image": require("../images/green_hoodie.png")
     },
     {

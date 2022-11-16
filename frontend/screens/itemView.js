@@ -3,12 +3,13 @@ import { StyleSheet, ScrollView, View, TouchableOpacity, Text, Image } from "rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function ItemViewScreen({route}) {
+export default function ItemViewScreen({route, navigation}) {
     const {title, price, description, size, condition, location, image} = route.params
 
     const addToCart = async() => {
         if(title === 'Green Hoodie') {
             await AsyncStorage.setItem("purchased_item", 'true')
+            navigation.goBack()
         } else {
             alert('Only green hoodie is purchasable')
         }
@@ -53,13 +54,15 @@ export default function ItemViewScreen({route}) {
                     </View>
                     <Image source={require("../images/map.png")} style={styles.map}/>
                 </View>
+
+                <TouchableOpacity 
+                    style={styles.cartButton}
+                    onPress={() => addToCart()} 
+                >
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Add to Cart</Text>
+                </TouchableOpacity>
             </ScrollView>
 
-            <TouchableOpacity 
-                onPress={() => addToCart()} 
-            >
-                <Text>Add to Cart -- working but styling needs to be done when navbar is fixed</Text>
-            </TouchableOpacity>
         </View>
     );
 }
@@ -124,5 +127,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 120,
         borderRadius: 8
+    },
+    cartButton: {
+        backgroundColor: '#167D7F',
+        width: "100%",
+        borderRadius: 8,
+        textAlign: 'center',
+        alignItems: "center",
+        paddingVertical: 12,
+        marginBottom: 30,
     }
 });

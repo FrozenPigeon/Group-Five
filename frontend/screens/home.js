@@ -84,8 +84,8 @@ export default function HomeScreen({ navigation }) {
             <ScrollView contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "space-between" }}>
                 {search(clothing_items).map((info, i) => (
                     <TouchableOpacity
+                        key={i}
                         onPress={() => navigation.navigate("ItemViewScreen", {
-                            key: i,
                             title: info.title,
                             price: info.price,
                             description: info.description,
@@ -111,7 +111,6 @@ export default function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-            <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}><Text>Go to Cart -- will remove when header is made</Text></TouchableOpacity>
         </View></>
     );
 
