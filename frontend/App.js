@@ -10,6 +10,7 @@ import ProfileScreen from "./screens/profile";
 import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
+import Purchased from "./screens/purchased";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 
@@ -82,8 +83,8 @@ export default function App() {
         headerTintColor: '#167D7F',
         header: ({navigation}) => (
           <SafeAreaView style={{display: "flex"}}>
-            <View style={{display: "flex", borderBottomWidth: 2, borderBottomColor: "grey", flexDirection: "row", backgroundColor: "white", height: 70, alignItems: "center", justifyContent: "space-between"}}>
-              <Text style={{marginLeft: 15, fontSize: 30, fontWeight: "bold"}}> Thriftease </Text>
+            <View style={{display: "flex", borderBottomColor: "grey", flexDirection: "row", backgroundColor: "white", height: 60, alignItems: "center", justifyContent: "space-between"}}>
+              <Text style={{marginLeft: 20, fontSize: 30, fontWeight: "bold"}}> Thriftease </Text>
               <View style={{display: "flex", flexDirection: "row"}}>
               <TouchableOpacity
               style={{marginRight: 15}}
@@ -91,7 +92,7 @@ export default function App() {
                 <Ionicons name="cart-outline" size={"40px"}/>
               </TouchableOpacity>
               <TouchableOpacity
-              style={{marginRight: 15, borderWidth: 2, borderRadius: 10, alignItems: "center", justifyContent: "center"}}
+              style={{marginRight: 20, borderWidth: 2, borderRadius: 8, alignItems: "center", justifyContent: "center"}}
               onPress={()=> Alert.alert("Not implemented", "Buying tokens is not currently implemented", [
                 {
                     text: 'OK'
@@ -99,7 +100,7 @@ export default function App() {
           
               ])}
               >
-                <Text style={{marginLeft: 5, marginRight: 5, fontSize: 30, fontWeight: "bold"}}> {tokens} <Ionicons name="logo-bitcoin" size={"30px"}/> </Text>
+                <Text style={{marginLeft: 5, marginRight: 5, fontSize: 25, fontWeight: "600"}}> {tokens} <Ionicons name="logo-bitcoin" size={"25px"}/> </Text>
               </TouchableOpacity>
               </View>
               
@@ -134,8 +135,9 @@ export default function App() {
     <NavigationContainer theme={{ colors: { background: '#FFFFFF' } }}>
       <RootStack.Navigator initialRouteName="BottomNavigation">
         <RootStack.Screen name="Home" component={HomeScreen} />
-        <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} />
+        <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="CartScreen" component={CartScreen} />
+        <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
 
       </RootStack.Navigator>
