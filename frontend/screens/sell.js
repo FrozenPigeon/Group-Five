@@ -30,6 +30,27 @@ export default function SellScreen({ navigation }) {
 
   const cameraRef = useRef(null);
 
+  function confirmSale() {
+
+    Alert.alert("Sale Confirmed", null, [
+      {
+          text: 'OK'
+      }
+
+    ])
+
+    setEvaluateStage(false)
+    setItemPhoto("")
+    setItemValuation(0)
+    setItemTitle("")
+    setItemDescription("")
+    setItemCategory("Item Category")
+    setItemSize("Item Size")
+    setCategoryDropdownOpen(false)
+    setSizeDropdownOpen(false)
+
+  }
+
   useEffect(() => {
 
     (async () => {
@@ -443,7 +464,7 @@ export default function SellScreen({ navigation }) {
             <View style={{ width: 10 }} />
             <TouchableOpacity
               style={styles.confirmButton}
-              onPress={reset}
+              onPress={confirmSale}
             >
               <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Confirm</Text>
             </TouchableOpacity>
@@ -478,7 +499,6 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    borderRadius: 20,
     alignItems: "center",
   },
   buttonContainer: {

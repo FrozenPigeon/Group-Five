@@ -1,75 +1,144 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useLinkProps } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {SafeAreaView, View, Text, TouchableOpacity, Alert} from 'react-native'
 
 import HomeScreen from "./screens/home";
 import ProfileScreen from "./screens/profile";
 import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
 export default function App() {
 
+  const [tokens, setTokens] = useState("0")
+
+  function openCart() {
+    App.navigation.navigate('CartScreen')
+  }
+
+  const getTokens = async () => {
+
+    try {
+      const value = await AsyncStorage.getItem('@tokens')
+      setTokens(value)
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  }
+
+  // currently loads 10 tokens on app start.. need to change depending on profile implementation
+  const loadTokens = async () => {
+
+    try {
+      await AsyncStorage.setItem('@tokens', "10")
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+
+  useEffect(() => {
+
+    loadTokens();
+    getTokens();
+
+  }, []);
+  
   const TabsNav = () => (
     <Tabs.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-                if (route.name === 'Home') {
-                  iconName = focused
-                    ? 'home'
-                    : 'home-outline';
-                } else if (route.name === 'Sell') {
-                  iconName = focused
-                    ? 'pricetags'
-                    : 'pricetags-outline';
-                } else if (route.name === 'Profile') {
-                  iconName = focused
-                    ? 'person-circle'
-                    : 'person-circle-outline';
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home-outline';
+          } else if (route.name === 'Sell') {
+            iconName = focused
+              ? 'pricetags'
+              : 'pricetags-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused
+              ? 'person-circle'
+              : 'person-circle-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: '#167D7F',
+        tabBarInactiveTintColor: '#515154',
+        headerTintColor: '#167D7F',
+        header: ({navigation}) => (
+          <SafeAreaView style={{display: "flex"}}>
+            <View style={{display: "flex", borderBottomWidth: 2, borderBottomColor: "grey", flexDirection: "row", backgroundColor: "white", height: 70, alignItems: "center", justifyContent: "space-between"}}>
+              <Text style={{marginLeft: 15, fontSize: 30, fontWeight: "bold"}}> Thriftease </Text>
+              <View style={{display: "flex", flexDirection: "row"}}>
+              <TouchableOpacity
+              style={{marginRight: 15}}
+              onPress={ () => navigation.navigate('CartScreen')}>
+                <Ionicons name="cart-outline" size={"40px"}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+              style={{marginRight: 15, borderWidth: 2, borderRadius: 10, alignItems: "center", justifyContent: "center"}}
+              onPress={()=> Alert.alert("Not implemented", "Buying tokens is not currently implemented", [
+                {
+                    text: 'OK'
                 }
-
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              tabBarActiveTintColor: '#167D7F',
-              tabBarInactiveTintColor: '#515154',
-              headerTintColor: '#167D7F',
-              tabBarStyle: {
-              }
+          
+              ])}
+              >
+                <Text style={{marginLeft: 5, marginRight: 5, fontSize: 30, fontWeight: "bold"}}> {tokens} <Ionicons name="logo-bitcoin" size={"30px"}/> </Text>
+              </TouchableOpacity>
+              </View>
               
-            })}
-          >
-            <Tabs.Screen
-              name="Home"
-              component={HomeScreen}
-            />
-            <Tabs.Screen
-              name="Sell"
-              component={SellScreen}
-            />
-            <Tabs.Screen
-              name="Profile"
-              component={ProfileScreen}
-            />
-          </Tabs.Navigator>
+            </View>
+
+          </SafeAreaView>
+
+        ),
+        tabBarStyle: {
+        }
+
+      })}
+    >
+      <Tabs.Screen
+        name="Home"
+        component={HomeScreen}
+      />
+      <Tabs.Screen
+        name="Sell"
+        component={SellScreen}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </Tabs.Navigator>
 
   );
 
 
   return (
-    <NavigationContainer theme={{colors: {background: '#FFFFFF'}}}>
+    <NavigationContainer theme={{ colors: { background: '#FFFFFF' } }}>
       <RootStack.Navigator initialRouteName="BottomNavigation">
-        <RootStack.Screen name="Home" component={HomeScreen}/>
+        <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} />
         <RootStack.Screen name="CartScreen" component={CartScreen} />
-        <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }}/>
-        
-      </RootStack.Navigator> 
+        <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
+
+      </RootStack.Navigator>
 
     </NavigationContainer>
   );
