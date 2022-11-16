@@ -57,32 +57,33 @@ export default function HomeScreen({ navigation }) {
       };
 
     return (
+        //<TopNavbar />
+        <>
         <View style={styles.main_container}>
             <View style={styles.searchbar}>
-                <Ionicons name="search-outline" color="#515154" style={{fontSize: 20, paddingRight: 8}} />
-                <TextInput 
+                <Ionicons name="search-outline" color="#515154" style={{ fontSize: 20, paddingRight: 8 }} />
+                <TextInput
                     placeholder="Search ..."
                     onChangeText={(e) => setQ(e)}
                     defaultValue={q}
-                    placeholderTextColor='#515154'
-                />
+                    placeholderTextColor='#515154' />
             </View>
-            
+
             <View style={styles.button_container}>
-                <TouchableOpacity onPress={() => selectThriftstore()} style={[styles.button, {backgroundColor: flagThrift ? '#167D7F' : '#E4E4E4'}]}>
-                <Text style={[styles.buttontext, {color: flagThrift ? '#FFFFFF' : '#515154'}]}>Thriftstore</Text>
+                <TouchableOpacity onPress={() => selectThriftstore()} style={[styles.button, { backgroundColor: flagThrift ? '#167D7F' : '#E4E4E4' }]}>
+                    <Text style={[styles.buttontext, { color: flagThrift ? '#FFFFFF' : '#515154' }]}>Thriftstore</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => selectWarehouse()}   style={[styles.button, {backgroundColor: flagWarehouse ? '#167D7F' : '#E4E4E4'}]}>
-                    <Text style={[styles.buttontext, {color: flagWarehouse ? '#FFFFFF' : '#515154'}]}>Warehouse</Text>
+                <TouchableOpacity onPress={() => selectWarehouse()} style={[styles.button, { backgroundColor: flagWarehouse ? '#167D7F' : '#E4E4E4' }]}>
+                    <Text style={[styles.buttontext, { color: flagWarehouse ? '#FFFFFF' : '#515154' }]}>Warehouse</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert('This will show more filter options')}   style={[styles.button, {backgroundColor: '#E4E4E4'}]}>
+                <TouchableOpacity onPress={() => alert('This will show more filter options')} style={[styles.button, { backgroundColor: '#E4E4E4' }]}>
                     <Text style={styles.buttontext}>More Filters</Text>
                 </TouchableOpacity>
             </View>
-        
-            <ScrollView contentContainerStyle={{flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent:"space-between"}}>
+
+            <ScrollView contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "space-between" }}>
                 {search(clothing_items).map((info, i) => (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => navigation.navigate("ItemViewScreen", {
                             key: i,
                             title: info.title,
@@ -92,26 +93,26 @@ export default function HomeScreen({ navigation }) {
                             condition: info.condition,
                             location: info.location,
                             image: info.image
-                        })} 
+                        })}
                         style={styles.itemContainer}
                     >
-                        <View style={[styles.typeContainer, {backgroundColor: info.type === 'Thriftstore' ? '#0C3A5A' : '#AF638E'}]}>
-                            <Text style={{color: '#FFFFFF', fontSize: 11}}>{info.type}</Text>
+                        <View style={[styles.typeContainer, { backgroundColor: info.type === 'Thriftstore' ? '#0C3A5A' : '#AF638E' }]}>
+                            <Text style={{ color: '#FFFFFF', fontSize: 11 }}>{info.type}</Text>
                         </View>
-                        
-                        <Image source={info.image} style={{height: 120, width: 120, zIndex: 1}}/>
+
+                        <Image source={info.image} style={{ height: 120, width: 120, zIndex: 1 }} />
                         <View style={styles.itemInfoContainer}>
                             <Text style={styles.itemText}>{info.title}</Text>
                             <View style={styles.itemTextContainer}>
                                 <Text style={styles.itemText}>{info.price}</Text>
-                                <Ionicons name="logo-bitcoin" style={styles.itemText}/>
+                                <Ionicons name="logo-bitcoin" style={styles.itemText} />
                             </View>
                         </View>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
             <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}><Text>Go to Cart -- will remove when header is made</Text></TouchableOpacity>
-        </View>
+        </View></>
     );
 
 }
