@@ -111,6 +111,7 @@ export default function HomeScreen({ navigation }) {
                 ))}
             </ScrollView>
             <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}><Text>Go to Cart -- will remove when header is made</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}><Text>Go to Login -- will remove later</Text></TouchableOpacity>
         </View>
     );
 

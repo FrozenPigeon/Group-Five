@@ -8,6 +8,8 @@ import ProfileScreen from "./screens/profile";
 import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
+import LoginScreen from "./screens/login";
+import RegisterScreen from "./screens/register";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -67,8 +69,9 @@ export default function App() {
         <RootStack.Screen name="Home" component={HomeScreen}/>
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} />
         <RootStack.Screen name="CartScreen" component={CartScreen} />
+        <RootStack.Screen name="LoginScreen" component={LoginScreen} options={{headerTitle: "Login"}}/>
+        <RootStack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerTitle: "Register"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }}/>
-        
       </RootStack.Navigator> 
 
     </NavigationContainer>
