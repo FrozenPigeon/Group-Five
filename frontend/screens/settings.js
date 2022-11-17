@@ -10,7 +10,7 @@ function Settings({ navigation }) {
             <Image source={require("../images/profile.png")} style={styles.user} resizeMode="contain"/>
             <View style ={{marginLeft: 20}}>
                 <Text style={{fontSize:18, fontWeight: '300', paddingBottom: 4}}>Bruce Shiny</Text>
-                <Text style={{fontSize:14, fontWeight: '200'}}>View Profile</Text>
+                <Text style={{fontSize:14, fontWeight: '200'}}>Edit Profile</Text>
             </View>
           </TouchableOpacity>
             <Ionicons name="chevron-forward-outline" style={{fontSize: 25}} />
