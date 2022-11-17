@@ -19,7 +19,7 @@ export default function ItemViewScreen({route, navigation}) {
         <View style={styles.main_container}>
             <ScrollView>
                 <View style={styles.imageContainer}>
-                    <Image source={image} style={{width:220, height: '100%'}}/>
+                    <Image source={image} resizeMode="contain" style={{width:220, height: '100%'}}/>
                 </View>
 
                 <View>
@@ -43,7 +43,7 @@ export default function ItemViewScreen({route, navigation}) {
                         </View>
                     </View>
                     <View style={styles.locationContainer}>
-                        <View>
+                        <View style={{flex: 1}}>
                             <Text style={styles.contentHeading}>Location</Text>
                             <Text style={styles.contentBody}>{location}</Text>
                         </View>
@@ -92,7 +92,10 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        overflow: 'hidden',
+        width: '100%',
+        breakWord: 'word-break'
     },
     contentHeading: {
         fontSize: 18,
