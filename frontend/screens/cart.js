@@ -25,11 +25,11 @@ export default function CartScreen({navigation}) {
             {itemPurchased === 'true' && 
                 <View style={styles.item}>
                     <View style={styles.itemContent}>
-                        <Text style={styles.itemHeading}>{clothing_items[5].title}</Text>
+                        <Text style={styles.itemHeading}>{clothing_items[6].title}</Text>
                         <View style={styles.itemBodyContainer}>
-                            <Text style={styles.itemBody}>Size: {clothing_items[5].size}</Text>
-                            <Text style={styles.itemBody}>Condition: {clothing_items[5].condition}</Text>
-                            <Text style={styles.itemBody}>Cost: {clothing_items[5].price} tokens</Text>
+                            <Text style={styles.itemBody}>Size: {clothing_items[6].size}</Text>
+                            <Text style={styles.itemBody}>Condition: {clothing_items[6].condition}</Text>
+                            <Text style={styles.itemBody}>Cost: {clothing_items[6].price} tokens</Text>
                         </View>
                         
                         <TouchableOpacity style={styles.removeButton} onPress={() => {AsyncStorage.setItem("purchased_item", 'false'); setItemPurchased('false')}}>
@@ -38,7 +38,7 @@ export default function CartScreen({navigation}) {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <Image source={clothing_items[5].image}/>
+                        <Image source={clothing_items[6].image}/>
                     </View>
                 </View>
             }

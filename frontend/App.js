@@ -20,6 +20,22 @@ const RootStack = createNativeStackNavigator();
 export default function App() {
 
   const [tokens, setTokens] = useState("0")
+  const [itemPurchased, setItemPurchased] = useState('');
+
+  const getItemPurchased = async () => {
+      const value = await AsyncStorage.getItem('purchased_item');
+      if (value === 'false') {
+          setItemPurchased('false');
+      } else setItemPurchased('true');
+  };
+
+
+  useEffect(() => {
+      setInterval(() => {
+        getItemPurchased();
+      }, 1000)
+  },[]);
+
 
   function openCart() {
     App.navigation.navigate('CartScreen')
@@ -89,7 +105,10 @@ export default function App() {
               <TouchableOpacity
               style={{marginRight: 15}}
               onPress={ () => navigation.navigate('CartScreen')}>
-                <Ionicons name="cart-outline" size={"40px"}/>
+                <View>
+                  <Ionicons name="cart-outline" size={"40px"}/>
+                  { itemPurchased === "true" && <View style={{  width: 10, height: 10, borderRadius: 10, backgroundColor: '#167D7F',  position: 'absolute', alignSelf: "flex-end"}}></View> }
+                </View>
               </TouchableOpacity>
               <TouchableOpacity
               style={{marginRight: 20, borderWidth: 2, borderRadius: 8, alignItems: "center", justifyContent: "center"}}
