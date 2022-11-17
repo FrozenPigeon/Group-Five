@@ -54,10 +54,10 @@ export default function App() {
   }
 
   // currently loads 10 tokens on app start.. need to change depending on profile implementation
-  const loadTokens = async () => {
+  const setup = async () => {
 
     try {
-      await AsyncStorage.setItem('@tokens', "10")
+      await AsyncStorage.setItem('@tokens', "20")
       await AsyncStorage.setItem('purchased_item', "false")
       await AsyncStorage.setItem('@purchasecompleted', "false")
       await AsyncStorage.setItem('@sold_item', "false")
@@ -73,7 +73,7 @@ export default function App() {
 
   useEffect(() => {
 
-    loadTokens();
+    setup();
     getTokens();
 
   }, []);

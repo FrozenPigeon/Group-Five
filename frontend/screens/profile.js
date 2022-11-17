@@ -44,15 +44,11 @@ export default function ProfileScreen({ navigation }) {
 
     if (sold === 'true'){
       return (<View style={styles.itemContainer}>
-      <View style={[styles.typeContainer, { backgroundColor: '#AF638E' }]}>
-          <Text style={{ color: '#FFFFFF', fontSize: 11 }}>Warehouse</Text>
-      </View>
-
       <Image source={{ uri: photoURI}} resizeMode="contain" style={{ height: 120, width: 120, zIndex: 1}} />
       <View style={styles.itemInfoContainer}>
           <Text style={styles.itemText}>{soldItemTitle}</Text>
           <View style={styles.itemTextContainer}>
-              <Text style={styles.itemText}>{soldItemValuation}</Text>
+              <Text style={styles.itemText}>+{soldItemValuation}</Text>
               <Ionicons name="logo-bitcoin" style={styles.itemText} />
           </View>
       </View>
@@ -111,9 +107,9 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.main_container}>
         <View style={styles.info_container}>
           <Image source={require("../images/user.png")} style={styles.user} resizeMode="contain"/>
-          <View>
-            <Text>Bruce Shiny</Text>
-            <Text>Description: I like sharks and shiny things</Text>
+          <View style ={{marginLeft: 20}}>
+            <Text style={{fontSize: 20, fontWeight: "bold", marginBottom: 10}}>Bruce Shiny</Text>
+            <Text>I like sharks and shiny things</Text>
           </View>
         </View>
         <View style={styles.button_container}>
@@ -148,7 +144,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginVertical: 8,
-    justifyContent: "space-between"
+    alignItems: "center"
+
   },
   button: {
     flex: 1,
