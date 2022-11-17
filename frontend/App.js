@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import DisplaySettings from "./screens/displaySettings";
 import EditProfile from "./screens/editProfile";
+import Login from "./screens/loginScreen";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -168,7 +169,7 @@ export default function App() {
 
   return (
     <NavigationContainer theme={{ colors: { background: '#FFFFFF' } }}>
-      <RootStack.Navigator initialRouteName="BottomNavigation">
+      <RootStack.Navigator initialRouteName="Login">
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="CartScreen" component={CartScreen} options={{headerTitle: ""}}/>
@@ -178,6 +179,7 @@ export default function App() {
         <RootStack.Screen name="Display & Text Size" component={DisplaySettings} options={{headerTitle: "Display & Text Size"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
         <RootStack.Screen name="EditProfileScreen" component={EditProfile} options={{headerTitle: ""}}/>
+        <RootStack.Screen name="Login" component={Login} options={{headerTitle: ""}}/>
         
 
       </RootStack.Navigator>
