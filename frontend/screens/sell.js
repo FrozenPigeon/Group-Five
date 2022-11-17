@@ -49,7 +49,7 @@ export default function SellScreen({ navigation }) {
         item_description: itemDescription
       }
 
-      await AsyncStorage.setItem('sold_item_details', JSON.stringify(data));
+      await AsyncStorage.setItem('sold_item_details', data);
       await AsyncStorage.setItem('sold_item_photo', itemPhoto);
     } catch {
 

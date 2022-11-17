@@ -15,17 +15,6 @@ export default function CartScreen({navigation}) {
         } else setItemPurchased('true');
     };
 
-    const completePurchase = async () => {
-
-      try {
-        await AsyncStorage.setItem('@purchasecompleted', "true")
-        navigation.navigate('Purchased')
-      } catch (error) {
-        console.log(error);
-  
-      }
-    }
-
     useEffect(() => {
         getItemPurchased();
     }, [itemPurchased]);
@@ -61,9 +50,7 @@ export default function CartScreen({navigation}) {
             }
 
             {itemPurchased === 'true' && 
-                <TouchableOpacity style={styles.purchaseButton} onPress={
-                
-                completePurchase}>
+                <TouchableOpacity style={styles.purchaseButton} onPress={ () => navigation.navigate('Purchased')}>
                     <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Complete Purchase</Text>
                 </TouchableOpacity>
             }

@@ -57,6 +57,8 @@ export default function HomeScreen({ navigation }) {
       };
 
     return (
+        //<TopNavbar />
+        <>
         <View style={styles.main_container}>
             <View style={styles.searchbar}>
                 <Ionicons name="search-outline" color="#515154" style={{ fontSize: 20, paddingRight: 8 }} />
@@ -109,8 +111,7 @@ export default function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-            <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}><Text>Go to Login -- will remove later</Text></TouchableOpacity>
-        </View>
+        </View></>
     );
 
 }

@@ -10,8 +10,6 @@ import ProfileScreen from "./screens/profile";
 import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
-import LoginScreen from "./screens/login";
-import RegisterScreen from "./screens/register";
 import Purchased from "./screens/purchased";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
@@ -60,7 +58,6 @@ export default function App() {
 
     try {
       await AsyncStorage.setItem('@tokens', "10")
-      await AsyncStorage.setItem('@purchasecompleted', "false")
     } catch (error) {
       console.log(error);
 
@@ -159,10 +156,9 @@ export default function App() {
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="CartScreen" component={CartScreen} />
-        <RootStack.Screen name="LoginScreen" component={LoginScreen} options={{headerTitle: "Login"}}/>
-        <RootStack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerTitle: "Register"}}/>
-        <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }}/>
         <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
+        <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
+
       </RootStack.Navigator>
 
     </NavigationContainer>
