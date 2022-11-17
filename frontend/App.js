@@ -29,11 +29,17 @@ export default function App() {
           setItemPurchased('false');
       } else setItemPurchased('true');
   };
-
+  
+  const getTokenCount = async () => {
+    const value = await AsyncStorage.getItem('@tokens');
+    
+    setTokens(parseInt(value));
+};
 
   useEffect(() => {
       setInterval(() => {
         getItemPurchased();
+        getTokenCount();
       }, 1000)
   },[]);
 

@@ -46,7 +46,7 @@ export default function SellScreen({ navigation }) {
       await AsyncStorage.setItem('@sold_item_photo', itemPhoto);
 
       const tokensString = await AsyncStorage.getItem('@tokens')
-      const tokenInt = parseInt(tokensString) - itemValuation
+      const tokenInt = parseInt(tokensString) + itemValuation
       await AsyncStorage.setItem('@tokens', tokenInt.toString())
     } catch {
 
