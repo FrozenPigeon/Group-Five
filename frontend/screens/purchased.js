@@ -21,7 +21,7 @@ export default function Purchased({navigation}) {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.purchaseButton} onPress={ () => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.purchaseButton} onPress={ () => navigation.pop('2')}>
                 <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Return Home</Text>
             </TouchableOpacity>
         </View>

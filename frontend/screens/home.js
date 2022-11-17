@@ -100,7 +100,7 @@ export default function HomeScreen({ navigation }) {
                             <Text style={{ color: '#FFFFFF', fontSize: 11 }}>{info.type}</Text>
                         </View>
 
-                        <Image source={info.image} style={{ height: 120, width: 120, zIndex: 1 }} />
+                        <Image source={info.image} resizeMode="contain" style={{ height: 120, width: 120, zIndex: 1}} />
                         <View style={styles.itemInfoContainer}>
                             <Text style={styles.itemText}>{info.title}</Text>
                             <View style={styles.itemTextContainer}>
@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     button: {
-        maxWidth: 130,
+        maxWidth: 115,
         alignItems: 'center',
         borderRadius: 8,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         paddingVertical: 6,
     },
     buttontext: {
