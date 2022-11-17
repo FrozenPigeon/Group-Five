@@ -9,15 +9,15 @@ export default function Purchased({navigation}) {
             <Text style={styles.heading}>Item(s) Purchased</Text>
             <View style={styles.item}>
                 <View style={styles.itemContent}>
-                    <Text style={styles.itemHeading}>{clothing_items[5].title}</Text>
+                    <Text style={styles.itemHeading}>{clothing_items[6].title}</Text>
                     <View style={styles.itemBodyContainer}>
-                        <Text style={styles.itemBody}>Size: {clothing_items[5].size}</Text>
-                        <Text style={styles.itemBody}>Condition: {clothing_items[5].condition}</Text>
-                        <Text style={styles.itemBody}>Cost: {clothing_items[5].price} tokens</Text>
+                        <Text style={styles.itemBody}>Size: {clothing_items[6].size}</Text>
+                        <Text style={styles.itemBody}>Condition: {clothing_items[6].condition}</Text>
+                        <Text style={styles.itemBody}>Cost: {clothing_items[6].price} tokens</Text>
                     </View>
                 </View>
                 <View>
-                    <Image source={clothing_items[5].image}/>
+                    <Image source={clothing_items[6].image}/>
                 </View>
             </View>
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     heading: {
-        fontSize: 25,
+        fontSize: 26,
         fontWeight: 'bold'
     },
     item: {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
     itemHeading: {
         fontSize: 20,
-        fontWeight: '500'
+        fontWeight: '600'
     },
     itemBodyContainer: {
         paddingVertical: 12,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     removeButton: {
         borderWidth: 1,
-        borderColor: '#515154',
+        borderColor: '#616164',
         borderRadius: 8,
         paddingHorizontal: 8,
         paddingVertical: 4,
