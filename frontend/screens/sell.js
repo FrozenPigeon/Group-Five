@@ -40,17 +40,10 @@ export default function SellScreen({ navigation }) {
 
     ])
     try {
-      await AsyncStorage.setItem('sold_item', "true");
-
-      const data = {
-        item_title: itemTitle,
-        item_category: itemCategory,
-        item_size: itemSize,
-        item_description: itemDescription
-      }
-
-      await AsyncStorage.setItem('sold_item_details', data);
-      await AsyncStorage.setItem('sold_item_photo', itemPhoto);
+      await AsyncStorage.setItem('@sold_item', "true");
+      await AsyncStorage.setItem('@sold_item_title', itemTitle);
+      await AsyncStorage.setItem('@sold_item_valuation', itemValuation.toString());
+      await AsyncStorage.setItem('@sold_item_photo', itemPhoto);
     } catch {
 
     }

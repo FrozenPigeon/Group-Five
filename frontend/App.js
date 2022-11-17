@@ -58,6 +58,12 @@ export default function App() {
 
     try {
       await AsyncStorage.setItem('@tokens', "10")
+      await AsyncStorage.setItem('purchased_item', "false")
+      await AsyncStorage.setItem('@purchasecompleted', "false")
+      await AsyncStorage.setItem('@sold_item', "false")
+      await AsyncStorage.removeItem('@sold_item_valuation')
+      await AsyncStorage.removeItem('@sold_item_title')
+      await AsyncStorage.removeItem('@sold_item_photo')
     } catch (error) {
       console.log(error);
 
