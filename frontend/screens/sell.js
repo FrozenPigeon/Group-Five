@@ -46,7 +46,7 @@ export default function SellScreen({ navigation }) {
       await AsyncStorage.setItem('@sold_item_photo', itemPhoto);
 
       const tokensString = await AsyncStorage.getItem('@tokens')
-      const tokenInt = parseInt(tokensString) - itemValuation
+      const tokenInt = parseInt(tokensString) + itemValuation
       await AsyncStorage.setItem('@tokens', tokenInt.toString())
     } catch {
 
@@ -222,9 +222,9 @@ export default function SellScreen({ navigation }) {
 
             <TouchableOpacity style={styles.dropdown} onPress={e => { categoryDropdownOpen ? setCategoryDropdownOpen(false) : setCategoryDropdownOpen(true) }}>
               {itemCategory === 'Item Category' ?
-                <Text style={{ color: 'grey' }}> {itemCategory} </Text>
+                <Text style={{ color: 'grey', marginLeft: -3 }}> {itemCategory} </Text>
                 :
-                <Text> {itemCategory} </Text>
+                <Text style={{ marginLeft: -3 }}> {itemCategory} </Text>
               }
               {categoryDropdownOpen ?
                 <Ionicons name="caret-up-outline" size="medium" />
@@ -295,9 +295,9 @@ export default function SellScreen({ navigation }) {
               <>
                 <TouchableOpacity style={styles.dropdown} onPress={e => { sizeDropdownOpen ? setSizeDropdownOpen(false) : setSizeDropdownOpen(true) }}>
                   {itemSize === 'Item Size' ?
-                    <Text style={{ color: 'grey' }}> {itemSize} </Text>
+                    <Text style={{ color: 'grey', marginLeft: -3 }}> {itemSize} </Text>
                     :
-                    <Text> {itemSize} </Text>
+                    <Text style={{ marginLeft: -3 }}> {itemSize} </Text>
                   }
                   {sizeDropdownOpen ?
                     <Ionicons name="caret-up-outline" size="medium" />

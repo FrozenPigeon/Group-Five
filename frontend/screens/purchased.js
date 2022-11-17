@@ -1,8 +1,17 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native'
 import clothing_items from "../data/ClothesData";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Purchased({navigation}) {
+export default function Purchased({ navigation }) {
+
+    const removeFromCart = async () => {
+        try {
+            await AsyncStorage.setItem('purchased_item', "false")
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <View style={styles.main_container}>
@@ -17,11 +26,11 @@ export default function Purchased({navigation}) {
                     </View>
                 </View>
                 <View>
-                    <Image source={clothing_items[6].image}/>
+                    <Image source={clothing_items[6].image} />
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.purchaseButton} onPress={ () => navigation.pop('2')}>
+            <TouchableOpacity style={styles.purchaseButton} onPress={() => {navigation.pop('2'); removeFromCart()}}>
                 <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Return Home</Text>
             </TouchableOpacity>
         </View>

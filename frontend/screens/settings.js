@@ -1,22 +1,19 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Touchable } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function Settings({ navigation }) {
   return (
     <View style={styles.main_container}>
         <View style={styles.profile_container}>
-          <View style={styles.info_container}>
+          <TouchableOpacity style={styles.info_container} onPress={() => navigation.navigate("EditProfileScreen")}>
             <Image source={require("../images/profile.png")} style={styles.user} resizeMode="contain"/>
             <View style ={{marginLeft: 20}}>
                 <Text style={{fontSize:18, fontWeight: '300', paddingBottom: 4}}>Bruce Shiny</Text>
                 <Text style={{fontSize:14, fontWeight: '200'}}>View Profile</Text>
             </View>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate("")}> 
-          {/* NEED TO ADD THIS TO GO TO JONO's Page */}
-            <Ionicons name="chevron-forward-outline" style={{fontSize: 25}} />
           </TouchableOpacity>
+            <Ionicons name="chevron-forward-outline" style={{fontSize: 25}} />
         </View>
         <TouchableOpacity style={styles.settings_container}>
             <Text style={{fontSize:17, fontWeight: '300', marginLeft: 8}}>Languages</Text>

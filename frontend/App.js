@@ -16,6 +16,7 @@ import Accessibility from "./screens/accessibility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import DisplaySettings from "./screens/displaySettings";
+import EditProfile from "./screens/editProfile";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -31,11 +32,17 @@ export default function App() {
           setItemPurchased('false');
       } else setItemPurchased('true');
   };
-
+  
+  const getTokenCount = async () => {
+    const value = await AsyncStorage.getItem('@tokens');
+    
+    setTokens(parseInt(value));
+};
 
   useEffect(() => {
       setInterval(() => {
         getItemPurchased();
+        getTokenCount();
       }, 1000)
   },[]);
 
@@ -170,6 +177,8 @@ export default function App() {
         <RootStack.Screen name="Accessibility" component={Accessibility} options={{headerTitle: "Accessibility"}}/>
         <RootStack.Screen name="Display & Text Size" component={DisplaySettings} options={{headerTitle: "Display & Text Size"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
+        <RootStack.Screen name="EditProfileScreen" component={EditProfile} options={{headerTitle: ""}}/>
+        
 
       </RootStack.Navigator>
 
