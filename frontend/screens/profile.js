@@ -75,7 +75,7 @@ export default function ProfileScreen({ navigation }) {
                     <Ionicons name="logo-bitcoin" style={styles.itemText} />
                 </View>
             </View>
-        </View>}
+          </View>}
         {tokens === 'false' &&
           <Text>No purchased items yet!</Text>
         }
