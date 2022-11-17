@@ -17,6 +17,8 @@ Implemented Functionality:
 username: bob@gmail.com
 password: test
 
+- Can hide/unhide password
+
 2. Home Page:
 
 - filter by thrift store or warehouse
@@ -37,6 +39,7 @@ password: test
 
 - taking a picture
 - inputting title, category, size, description
+- can retake the picture by holding the image
 - changing the category to "shoes" changes the size input to numeric
 
 6. Tokens
