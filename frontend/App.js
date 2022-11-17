@@ -11,8 +11,11 @@ import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
 import Purchased from "./screens/purchased";
+import Settings from "./screens/settings";
+import Accessibility from "./screens/accessibility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import DisplaySettings from "./screens/displaySettings";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -161,8 +164,11 @@ export default function App() {
       <RootStack.Navigator initialRouteName="BottomNavigation">
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
-        <RootStack.Screen name="CartScreen" component={CartScreen} />
+        <RootStack.Screen name="CartScreen" component={CartScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
+        <RootStack.Screen name="Settings" component={Settings} options={{headerTitle: "Settings"}}/>
+        <RootStack.Screen name="Accessibility" component={Accessibility} options={{headerTitle: "Accessibility"}}/>
+        <RootStack.Screen name="Display & Text Size" component={DisplaySettings} options={{headerTitle: "Display & Text Size"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
 
       </RootStack.Navigator>

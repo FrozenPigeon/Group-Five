@@ -35,7 +35,11 @@ export default function ProfileScreen({ navigation }) {
       </View>
     </View>)
     } else {
-      return <Text>No items purchased yet!</Text>
+      return (
+        <View style={{display: 'flex', justifyContent:'center', alignItems: 'center', width: '100%', paddingTop: 60}}>
+          <Image source={require("../images/no_purchased_icon.png")} resizeMode="contain" style={{paddingTop: 40}}/>
+        </View>
+      )
     }
         
   }
@@ -54,7 +58,11 @@ export default function ProfileScreen({ navigation }) {
       </View>
     </View>)
     } else {
-      return <Text>No items sold yet!</Text>
+      return (
+        <View style={{display: 'flex', justifyContent:'center', alignItems: 'center', width: '100%', paddingTop: 60}}>
+          <Image source={require("../images/no_sold_icon.png")} resizeMode="contain" style={{paddingTop: 40}}/>
+        </View>
+      )
     }
         
   }
@@ -105,12 +113,17 @@ export default function ProfileScreen({ navigation }) {
   }
   return (
       <View style={styles.main_container}>
-        <View style={styles.info_container}>
-          <Image source={require("../images/user.png")} style={styles.user} resizeMode="contain"/>
-          <View style ={{marginLeft: 20}}>
-            <Text style={{fontSize: 20, fontWeight: "bold", marginBottom: 10}}>Bruce Shiny</Text>
-            <Text>I like sharks and shiny things</Text>
+        <View style={styles.profile_container}>
+          <View style={styles.info_container}>
+            <Image source={require("../images/profile.png")} style={styles.user} resizeMode="contain"/>
+            <View style ={{marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: "bold", marginBottom: 10}}>Bruce Shiny</Text>
+              <Text>I like sharks and shiny things</Text>
+            </View>
           </View>
+          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+            <Ionicons name="settings-outline" style={{fontSize: 35}} />
+          </TouchableOpacity>
         </View>
         <View style={styles.button_container}>
           <TouchableOpacity onPress={() => selectPurchased()} style={[styles.button, {backgroundColor: tab === "Purchased" ? '#167D7F' : '#E4E4E4', borderTopLeftRadius: 8, borderBottomLeftRadius: 8}]}>
@@ -131,16 +144,22 @@ export default function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
   main_container: {
     margin: 20,
-    display: "flex"
+    display: "flex",
   },
   user: {
     borderRadius: 8,
     marginVertical: 12,
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
+  },
+  profile_container: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   info_container: {
-    width: '100%',
     display: "flex",
     flexDirection: "row",
     marginVertical: 8,
