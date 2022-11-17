@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Keyboard, Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, TextInput, Alert, KeyboardAvoidingView } from "react-native";
 import * as MediaLibrary from 'expo-media-library';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Camera, CameraType } from "expo-camera";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -30,7 +31,7 @@ export default function SellScreen({ navigation }) {
 
   const cameraRef = useRef(null);
 
-  function confirmSale() {
+  const confirmSale = async () => {
 
     Alert.alert("Sale Confirmed", null, [
       {
@@ -38,6 +39,12 @@ export default function SellScreen({ navigation }) {
       }
 
     ])
+    try {
+      await AsyncStorage.setItem('sold_item', "true");
+      await AsyncStorage.setItem('sold_item_photo', itemPhoto);
+    } catch {
+
+    }
 
     setEvaluateStage(false)
     setItemPhoto("")
