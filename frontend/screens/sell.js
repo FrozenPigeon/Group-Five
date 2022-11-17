@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, TextInput, Alert, KeyboardAvoidingView } from "react-native";
+import { Keyboard, Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, TextInput, Alert, KeyboardAvoidingView } from "react-native";
 import * as MediaLibrary from 'expo-media-library';
 import { Camera, CameraType } from "expo-camera";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,7 +34,7 @@ export default function SellScreen({ navigation }) {
 
     Alert.alert("Sale Confirmed", null, [
       {
-          text: 'OK'
+        text: 'OK'
       }
 
     ])
@@ -175,8 +175,14 @@ export default function SellScreen({ navigation }) {
 
   if (itemPhoto && !evaluateStage) {
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      
+      <KeyboardAvoidingView
+      keyboardVerticalOffset={70+70}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{flex: 1}}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+      
           <View style={styles.title}>
             <Text style={{ fontSize: 25, fontWeight: "bold" }}>
               Sell to our Warehouse
@@ -197,6 +203,7 @@ export default function SellScreen({ navigation }) {
               onChangeText={setItemTitle}
               value={itemTitle}
               placeholder="Item Title"
+              returnKeyType="Done"
               placeholderTextColor="grey"
             />
 
@@ -344,6 +351,7 @@ export default function SellScreen({ navigation }) {
               <TextInput
                 style={styles.input}
                 onChangeText={setItemSize}
+                returnKeyType="Done"
                 value={itemSize}
                 keyboardType="numeric"
                 placeholder="Shoe Size (US)"
@@ -356,10 +364,13 @@ export default function SellScreen({ navigation }) {
               style={styles.inputDescription}
               onChangeText={setItemDescription}
               value={itemDescription}
+              returnKeyType="Done"
               placeholder="Item Description (Optional)"
               placeholderTextColor="grey"
-              multiline={true}
-              numberOfLines={5}
+              textAlignVertical="top"
+              multiline
+              blurOnSubmit={true}
+              onSubmitEditing={() => { Keyboard.dismiss() }}
             />
 
             {canEvaluate ?
@@ -385,9 +396,9 @@ export default function SellScreen({ navigation }) {
             }
 
           </View>
-
-        </View>
-      </ScrollView>
+          <View style={{flex: 1}}/>
+          </ScrollView>
+        </KeyboardAvoidingView>
     );
   }
 
@@ -490,7 +501,7 @@ export default function SellScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
   },
   evaluateContainer: {
     flex: 1,
@@ -578,7 +589,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginTop: 10,
-    height: 100
+    height: 100,
 
   },
   evaluateButton: {
