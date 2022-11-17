@@ -7,8 +7,6 @@ import { useIsFocused } from '@react-navigation/native';
 
 export default function ProfileScreen({ navigation }) {
 
-  const [flagPurchased, setFlagPurchased] = useState(0);
-  const [flagSold, setFlagSold] = useState(0);
   const [tab, setTab] = useState("Purchased");
   const [purchased, setPurchased] = useState("false")
   const [sold, setSold] = useState("false")

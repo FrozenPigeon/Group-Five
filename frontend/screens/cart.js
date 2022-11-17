@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Text, Image, Alert } from 'react-native'
 import clothing_items from "../data/ClothesData";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function CartScreen({navigation}) {
+export default function CartScreen({ navigation }) {
 
     const [itemPurchased, setItemPurchased] = useState('');
 
@@ -16,13 +16,22 @@ export default function CartScreen({navigation}) {
     };
 
     const completePurchase = async () => {
+
         try {
-            await AsyncStorage.setItem('@purchasecompleted', "true")
+            const tokensString = await AsyncStorage.getItem('@tokens')
+            if (parseInt(tokensString) >= 5) {
+                const tokensInt = parseInt(tokensString) - parseInt(clothing_items[6].price)
+                navigation.navigate('Purchased')
+                await AsyncStorage.setItem('@tokens', tokensInt.toString())
+                await AsyncStorage.setItem('@purchasecompleted', "true")
+            } else {
+                Alert.alert("You have insufficient tokens!", "Sell something to gain more!")
+            }
         } catch {
 
         }
-        
-        navigation.navigate('Purchased')
+
+
     }
     useEffect(() => {
         getItemPurchased();
@@ -31,7 +40,7 @@ export default function CartScreen({navigation}) {
     return (
         <View style={styles.main_container}>
             <Text style={styles.heading}>Cart</Text>
-            {itemPurchased === 'true' && 
+            {itemPurchased === 'true' &&
                 <View style={styles.item}>
                     <View style={styles.itemContent}>
                         <Text style={styles.itemHeading}>{clothing_items[6].title}</Text>
@@ -40,25 +49,25 @@ export default function CartScreen({navigation}) {
                             <Text style={styles.itemBody}>Condition: {clothing_items[6].condition}</Text>
                             <Text style={styles.itemBody}>Cost: {clothing_items[6].price} tokens</Text>
                         </View>
-                        
-                        <TouchableOpacity style={styles.removeButton} onPress={() => {AsyncStorage.setItem("purchased_item", 'false'); setItemPurchased('false')}}>
-                            <Ionicons name="trash-outline" style={{fontSize: 20, paddingRight: 8}}/>    
+
+                        <TouchableOpacity style={styles.removeButton} onPress={() => { AsyncStorage.setItem("purchased_item", 'false'); setItemPurchased('false') }}>
+                            <Ionicons name="trash-outline" style={{ fontSize: 20, paddingRight: 8 }} />
                             <Text>Remove</Text>
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <Image source={clothing_items[6].image}/>
+                        <Image source={clothing_items[6].image} />
                     </View>
                 </View>
             }
 
-            {itemPurchased === 'false' && 
+            {itemPurchased === 'false' &&
                 <View>
-                    <Text>No item has been added to the cart. Yet!</Text>
+                    <Text style={{paddingTop: 10}}>No item has been added to the cart. Yet!</Text>
                 </View>
             }
 
-            {itemPurchased === 'true' && 
+            {itemPurchased === 'true' &&
                 <TouchableOpacity style={styles.purchaseButton} onPress={completePurchase}>
                     <Text style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>Complete Purchase</Text>
                 </TouchableOpacity>
