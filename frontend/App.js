@@ -44,6 +44,7 @@ export default function App() {
 
     try {
       await AsyncStorage.setItem('@tokens', "10")
+      await AsyncStorage.setItem('@purchasecompleted', "false")
     } catch (error) {
       console.log(error);
 
@@ -143,7 +144,6 @@ export default function App() {
         <RootStack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerTitle: "Register"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }}/>
         <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
-        <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
       </RootStack.Navigator>
 
     </NavigationContainer>

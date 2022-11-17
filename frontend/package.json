@@ -22,14 +22,10 @@
     "react-native": "0.70.5",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
-<<<<<<< HEAD
-    "react-native-web": "~0.18.9",
-    "undefined": "@expo/vector-icons/Ionicons"
-=======
     "undefined": "@expo/vector-icons/Ionicons",
     "expo-media-library": "~15.0.0",
-    "expo-camera": "~13.0.0"
->>>>>>> c5272b6c15fce365cfb85e9a3360316366652c99
+    "expo-camera": "~13.0.0",
+    "react-native-web": "~0.18.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
