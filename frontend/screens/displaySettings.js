@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity, Text, Switch} from "react-native";
+import { StyleSheet, ScrollView, View, TouchableOpacity, Text, Switch, Alert} from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function DisplaySettings() {
@@ -35,13 +35,13 @@ function DisplaySettings() {
             onChange={() => alert('This would change the text size')}
           />
         </View>
-        <View style={styles.specific_type_container}>
+        <TouchableOpacity style={styles.specific_type_container} onPress={()=> Alert.alert("Not implemented", "Accessibility feature")}>
           <Text style={{fontSize:17, fontWeight: '300', marginLeft: 8}}>Colour Filters</Text>
           <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <Text style={{fontSize: 16, marginRight: 4, paddingVertical: 4}}>Off</Text>
             <Ionicons name="chevron-forward-outline" style={{fontSize: 18}} />
           </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.specific_type_container_end}>
           <Text style={{fontSize:17, fontWeight: '300', marginLeft: 8}}>Increase Contrast</Text>
           <Switch
