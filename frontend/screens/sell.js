@@ -203,7 +203,9 @@ export default function SellScreen({ navigation }) {
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
-              onPress={() => setItemPhoto(null)}
+              onLongPress={() => Alert.alert("Retake Picture", null, [
+                {text: "Cancel"}, {text: "Retake", onPress: () => setItemPhoto(null)}
+              ])}
               style={{ display: "flex", alignItems: "center", height: 200, width: "90%" }}>
               <Image style={{ height: 200, width: "100%", borderRadius: 8, borderWidth: 1, borderColor: "grey" }} source={{ uri: itemPhoto }} />
             </TouchableOpacity>
