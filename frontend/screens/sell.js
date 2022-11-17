@@ -203,7 +203,7 @@ export default function SellScreen({ navigation }) {
               onChangeText={setItemTitle}
               value={itemTitle}
               placeholder="Item Title"
-              returnKeyType="Done"
+              returnKeyType="done"
               placeholderTextColor="grey"
             />
 
@@ -351,7 +351,7 @@ export default function SellScreen({ navigation }) {
               <TextInput
                 style={styles.input}
                 onChangeText={setItemSize}
-                returnKeyType="Done"
+                returnKeyType="done"
                 value={itemSize}
                 keyboardType="numeric"
                 placeholder="Shoe Size (US)"
@@ -364,7 +364,7 @@ export default function SellScreen({ navigation }) {
               style={styles.inputDescription}
               onChangeText={setItemDescription}
               value={itemDescription}
-              returnKeyType="Done"
+              returnKeyType="done"
               placeholder="Item Description (Optional)"
               placeholderTextColor="grey"
               textAlignVertical="top"
