@@ -13,6 +13,7 @@ import CartScreen from "./screens/cart";
 import Purchased from "./screens/purchased";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import EditProfile from "./screens/editProfile";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -164,6 +165,8 @@ export default function App() {
         <RootStack.Screen name="CartScreen" component={CartScreen} />
         <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
+        <RootStack.Screen name="EditProfileScreen" component={EditProfile} options={{headerTitle: ""}}/>
+        
 
       </RootStack.Navigator>
 

@@ -222,9 +222,9 @@ export default function SellScreen({ navigation }) {
 
             <TouchableOpacity style={styles.dropdown} onPress={e => { categoryDropdownOpen ? setCategoryDropdownOpen(false) : setCategoryDropdownOpen(true) }}>
               {itemCategory === 'Item Category' ?
-                <Text style={{ color: 'grey' }}> {itemCategory} </Text>
+                <Text style={{ color: 'grey', marginLeft: -3 }}> {itemCategory} </Text>
                 :
-                <Text> {itemCategory} </Text>
+                <Text style={{ marginLeft: -3 }}> {itemCategory} </Text>
               }
               {categoryDropdownOpen ?
                 <Ionicons name="caret-up-outline" size="medium" />
@@ -295,9 +295,9 @@ export default function SellScreen({ navigation }) {
               <>
                 <TouchableOpacity style={styles.dropdown} onPress={e => { sizeDropdownOpen ? setSizeDropdownOpen(false) : setSizeDropdownOpen(true) }}>
                   {itemSize === 'Item Size' ?
-                    <Text style={{ color: 'grey' }}> {itemSize} </Text>
+                    <Text style={{ color: 'grey', marginLeft: -3 }}> {itemSize} </Text>
                     :
-                    <Text> {itemSize} </Text>
+                    <Text style={{ marginLeft: -3 }}> {itemSize} </Text>
                   }
                   {sizeDropdownOpen ?
                     <Ionicons name="caret-up-outline" size="medium" />
