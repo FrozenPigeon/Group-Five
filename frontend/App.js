@@ -173,7 +173,7 @@ export default function App() {
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="CartScreen" component={CartScreen} options={{headerTitle: ""}}/>
-        <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
+        <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: "", headerBackVisible: false}}/>
         <RootStack.Screen name="Settings" component={Settings} options={{headerTitle: "Settings"}}/>
         <RootStack.Screen name="Accessibility" component={Accessibility} options={{headerTitle: "Accessibility"}}/>
         <RootStack.Screen name="Display & Text Size" component={DisplaySettings} options={{headerTitle: "Display & Text Size"}}/>
