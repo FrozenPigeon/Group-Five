@@ -11,8 +11,12 @@ import SellScreen from "./screens/sell";
 import ItemViewScreen from "./screens/itemView";
 import CartScreen from "./screens/cart";
 import Purchased from "./screens/purchased";
+import Settings from "./screens/settings";
+import Accessibility from "./screens/accessibility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import DisplaySettings from "./screens/displaySettings";
+import EditProfile from "./screens/editProfile";
 
 const Tabs = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -28,11 +32,17 @@ export default function App() {
           setItemPurchased('false');
       } else setItemPurchased('true');
   };
-
+  
+  const getTokenCount = async () => {
+    const value = await AsyncStorage.getItem('@tokens');
+    
+    setTokens(parseInt(value));
+};
 
   useEffect(() => {
       setInterval(() => {
         getItemPurchased();
+        getTokenCount();
       }, 1000)
   },[]);
 
@@ -54,10 +64,16 @@ export default function App() {
   }
 
   // currently loads 10 tokens on app start.. need to change depending on profile implementation
-  const loadTokens = async () => {
+  const setup = async () => {
 
     try {
-      await AsyncStorage.setItem('@tokens', "10")
+      await AsyncStorage.setItem('@tokens', "20")
+      await AsyncStorage.setItem('purchased_item', "false")
+      await AsyncStorage.setItem('@purchasecompleted', "false")
+      await AsyncStorage.setItem('@sold_item', "false")
+      await AsyncStorage.removeItem('@sold_item_valuation')
+      await AsyncStorage.removeItem('@sold_item_title')
+      await AsyncStorage.removeItem('@sold_item_photo')
     } catch (error) {
       console.log(error);
 
@@ -67,7 +83,7 @@ export default function App() {
 
   useEffect(() => {
 
-    loadTokens();
+    setup();
     getTokens();
 
   }, []);
@@ -155,9 +171,14 @@ export default function App() {
       <RootStack.Navigator initialRouteName="BottomNavigation">
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="ItemViewScreen" component={ItemViewScreen} options={{headerTitle: ""}}/>
-        <RootStack.Screen name="CartScreen" component={CartScreen} />
+        <RootStack.Screen name="CartScreen" component={CartScreen} options={{headerTitle: ""}}/>
         <RootStack.Screen name="Purchased" component={Purchased} options={{headerTitle: ""}}/>
+        <RootStack.Screen name="Settings" component={Settings} options={{headerTitle: "Settings"}}/>
+        <RootStack.Screen name="Accessibility" component={Accessibility} options={{headerTitle: "Accessibility"}}/>
+        <RootStack.Screen name="Display & Text Size" component={DisplaySettings} options={{headerTitle: "Display & Text Size"}}/>
         <RootStack.Screen name="BottomNavigation" component={TabsNav} options={{ headerShown: false }} />
+        <RootStack.Screen name="EditProfileScreen" component={EditProfile} options={{headerTitle: ""}}/>
+        
 
       </RootStack.Navigator>
 
